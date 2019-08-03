@@ -91,20 +91,29 @@ class EastNews(object):
 
     def watch_news(self):
         """
-        看新闻
+        看新闻。 看一个小时先试试水
         :return:
         """
 
         while True:
-            news_list = self.poco("com.songheng.eastnews:id/fu").children()
+            news_list = self.poco("com.songheng.eastnews:id/go").children()
+
+            # 如果没有元素，则往下翻页
+            if not news_list.exists():
+                self.next_page()
+                continue
 
             for news in news_list:
-                news_title = news.offspring("com.songheng.eastnews:id/ot")
-                news_foot = news.offspring("com.songheng.eastnews:id/abl")
+                news_title = news.offspring("com.songheng.eastnews:id/pn")
+                news_foot = news.offspring("com.songheng.eastnews:id/a5a")
 
                 # 必须是完整的一条内容才打开，否则跳过
                 if not news_title.exists() or not news_foot.exists():
                     print("内容不完整..切换下一条新闻")
+                    continue
+
+                if news.offspring("com.songheng.eastnews:id/a5k").exists():
+                    print("视频跳过")
                     continue
 
                 # 如果是小视频，跳过
@@ -120,7 +129,7 @@ class EastNews(object):
                     continue
 
                 # 下载软件的广告，跳过
-                if news.offspring("com.songheng.eastnews:id/zl").exists():
+                if news.offspring("com.songheng.eastnews:id/a0a").exists():
                     print("下载广告，跳过")
                     continue
 
@@ -144,6 +153,8 @@ class EastNews(object):
                 backup_keyevent()
 
             self.next_page()
+
+        print("新闻结束..")
 
     def play_news(self):
         max_times = random.randint(5, 15)
@@ -320,5 +331,5 @@ if __name__ == '__main__':
     # eastNews.run()
     # eastNews.get_top_title_coin()
     # eastNews.lottery()
-    eastNews.watch_video()
-    # eastNews.watch_news()
+    eastNews.watch_news()
+    # eastNews.watch_video()

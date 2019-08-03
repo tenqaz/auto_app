@@ -50,6 +50,7 @@ def top_gain_coin():
     if top_gain.exists():
         print("时段奖励领取")
         top_gain.click()
+        time.sleep(2)
         poco(name="com.cashtoutiao:id/tv_left", text="忽略").click()
 
 
@@ -77,9 +78,10 @@ def watch_news():
             #  视频跳过
             start_video = news.offspring("com.cashtoutiao:id/alivc_player_state")
             if start_video.exists():
-                start_video.click()
-                play_video()
-                backup_keyevent()
+                print("视频跳过")
+                # start_video.click()
+                # play_video()
+                # backup_keyevent()
                 continue
 
             print("正在看 {}".format(news_title.get_text()))
@@ -100,7 +102,7 @@ def watch_news():
 
 
 def play_news():
-    max_times = random.randint(5, 15)
+    max_times = random.randint(5, 10)
     now_times = 0
 
     while True:

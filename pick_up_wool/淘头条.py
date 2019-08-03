@@ -166,9 +166,9 @@ def play_small_video():
 
 
 def run():
-    # watch_news()
+    watch_news()
 
-    watch_small_video()
+    # watch_small_video()
 
 
 if __name__ == '__main__':
